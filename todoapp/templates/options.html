@@ -1,0 +1,46 @@
+{% extends "layout.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block
+body %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+      <h2>Select options</h2>
+      <form method="POST" action="">
+        {{ form.csrf_token }}
+        <div>{{ wtf.form_field(form.name) }}</div>
+        <div>{{ wtf.form_field(form.label) }}</div>
+        <div>{{ wtf.form_field(form.status) }}</div>
+        <div>{{ wtf.form_field(form.comment) }}</div>
+        <br />
+        <input
+          class="btn btn-outline-secondary text-warning fw-bold"
+          type="submit"
+          value="Save"
+        />
+        <br />
+        <br />
+        <h3>Activity</h3>
+        <div>
+          {%for comment in comments%}
+          <p>
+            @{{comment.user.username}} {{comment.created_at.strftime("%d %B")}}
+            at {{comment.created_at.strftime("%H:%M")}}
+          </p>
+          <input
+            class="form-control"
+            id="disabledInput"
+            type="text"
+            placeholder="{{comment.content}}"
+            disabled
+          />
+          {%endfor%}
+        </div>
+      </form>
+      <br />
+      <p class="space-above">
+        <a href="{{ url_for('home') }}">See all tickets</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

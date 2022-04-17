@@ -1,0 +1,146 @@
+{% extends "layout.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block
+body %}
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card m-5" style="width: 30rem">
+      <div class="card-header bg-secondary bg-gradient text-warning fw-bold">
+        To Do
+      </div>
+      <ul class="list-group list-group-flush bg-light">
+        {% for todo_ticket in todo_tickets %}
+        <div class="border border-1">
+          <a
+            {%
+            if
+            logged_in
+            %}
+            href="{{ url_for('options', ticket_id=todo_ticket.id) }}"
+            {%
+            else
+            %}
+            href="{{ url_for('login') }}"
+            {%
+            endif
+            %}
+            class="list-group-item list-group-item-action"
+            ><span class="badge bg-{{todo_ticket.label}} me-2">i</span
+            >{{todo_ticket.name}}</a
+          >
+          <!-- Default dropend button -->
+        </div>
+        {% endfor %}
+      </ul>
+      <small class="text-center text-link-secondary"> Add a new ticket </small>
+      <form class="card-footer" method="POST" action="">
+        {{ form.csrf_token }} {{ form.name(size=26, id="myInput" ) }} {{
+        form.status(value='todo')}}
+        <input
+          class="btn btn-outline-warning fw-bold btn-sm ms-1"
+          type="submit"
+          value="Add a ticket"
+        />
+        <a
+          onclick="document.getElementById('myInput').value = ''"
+          class="btn btn-light fw-bold ms-2"
+          >X</a
+        >
+      </form>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card m-5" style="width: 30rem">
+      <div class="card-header bg-secondary bg-gradient text-warning fw-bold">
+        Doing
+      </div>
+      <ul class="list-group list-group-flush bg-light">
+        {% for doing_ticket in doing_tickets %}
+        <div class="border border-1">
+          <a
+            {%
+            if
+            logged_in
+            %}
+            href="{{ url_for('options', ticket_id=doing_ticket.id) }}"
+            {%
+            else
+            %}
+            href="{{ url_for('login') }}"
+            {%
+            endif
+            %}
+            class="list-group-item list-group-item-action"
+            ><span class="badge bg-{{doing_ticket.label}} me-2">i</span
+            >{{doing_ticket.name}}</a
+          >
+          <!-- Default dropend button -->
+        </div>
+        {% endfor %}
+      </ul>
+      <small class="text-center text-link-secondary"> Add a new ticket </small>
+      <form class="card-footer" method="POST" action="">
+        {{ form.csrf_token }} {{ form.name(size=26, id="myInput2" ) }} {{
+        form.status(value='doing')}}
+        <input
+          class="btn btn-outline-warning fw-bold btn-sm ms-1"
+          type="submit"
+          value="Add a ticket"
+        />
+        <a
+          onclick="document.getElementById('myInput2').value = ''"
+          class="btn btn-light fw-bold ms-2"
+          >X</a
+        >
+      </form>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card m-5" style="width: 30rem">
+      <div class="card-header bg-secondary bg-gradient text-warning fw-bold">
+        Done
+      </div>
+      <ul class="list-group list-group-flush bg-light">
+        {% for done_ticket in done_tickets %}
+        <div class="border border-2">
+          <a
+            {%
+            if
+            logged_in
+            %}
+            href="{{ url_for('options', ticket_id=done_ticket.id) }}"
+            {%
+            else
+            %}
+            href="{{ url_for('login') }}"
+            {%
+            endif
+            %}
+            class="list-group-item list-group-item-action"
+            ><span class="badge bg-{{done_ticket.label}} me-2">i</span
+            >{{done_ticket.name}}</a
+          >
+          <!-- Default dropend button -->
+        </div>
+        {% endfor %}
+      </ul>
+      <small class="text-center text-link-secondary"> Add a new ticket </small>
+      <form class="card-footer" method="POST" action="">
+        {{ form.csrf_token }} {{ form.name(size=26, id="myInput3" ) }} {{
+        form.status(value='done')}}
+        <input
+          class="btn btn-outline-warning fw-bold btn-sm ms-1"
+          type="submit"
+          value="Add a ticket"
+        />
+        <a
+          onclick="document.getElementById('myInput3').value = ''"
+          class="btn btn-light fw-bold ms-2"
+          >X</a
+        >
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
